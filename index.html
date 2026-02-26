@@ -3,566 +3,842 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agendamentos CD Comercial do Norte</title>
+  <title>Agendamentos CD — Comercial do Norte</title>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --navy: #0d1b3e;
       --navy-mid: #162244;
-      --navy-light: #1e3060;
       --red: #c8102e;
       --red-hover: #a50d24;
       --white: #ffffff;
-      --off-white: #f0f3f8;
       --gray: #a0aec0;
-      --border: rgba(255,255,255,0.12);
+      --border: rgba(255,255,255,0.1);
       --input-bg: rgba(255,255,255,0.06);
-      --input-focus: rgba(200,16,46,0.2);
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       min-height: 100vh;
-      background-color: var(--navy);
+      background: var(--navy);
       background-image:
-        radial-gradient(ellipse at 20% 0%, rgba(200,16,46,0.18) 0%, transparent 55%),
-        radial-gradient(ellipse at 80% 100%, rgba(30,48,96,0.8) 0%, transparent 60%),
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 39px,
-          rgba(255,255,255,0.025) 39px,
-          rgba(255,255,255,0.025) 40px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 39px,
-          rgba(255,255,255,0.025) 39px,
-          rgba(255,255,255,0.025) 40px
-        );
+        radial-gradient(ellipse at 18% 0%, rgba(200,16,46,0.16) 0%, transparent 52%),
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.02) 39px, rgba(255,255,255,0.02) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.02) 39px, rgba(255,255,255,0.02) 40px);
       font-family: 'Barlow', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 24px 16px 48px;
     }
 
-    .wrapper {
-      width: 100%;
-      max-width: 560px;
-    }
-
-    /* HEADER */
-    .header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-
+    /* ─── HEADER ─── */
+    .header { width: 100%; max-width: 860px; text-align: center; margin-bottom: 28px; }
     .logo-band {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--red);
-      padding: 6px 20px;
-      border-radius: 2px;
-      margin-bottom: 16px;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--red); padding: 5px 18px; border-radius: 2px; margin-bottom: 14px;
     }
-
-    .logo-band svg {
-      width: 18px; height: 18px; fill: white; opacity: 0.9;
-    }
-
     .logo-band span {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: white;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 11px;
+      font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: white;
     }
-
     h1 {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(26px, 7vw, 38px);
-      font-weight: 800;
-      color: var(--white);
-      letter-spacing: 0.5px;
-      line-height: 1.1;
-      text-transform: uppercase;
+      font-size: clamp(24px, 6vw, 36px); font-weight: 800;
+      color: var(--white); letter-spacing: 1px; text-transform: uppercase; line-height: 1.1;
     }
+    h1 span { color: var(--red); }
+    .subtitle { margin-top: 6px; font-size: 13px; color: var(--gray); }
 
-    h1 span {
-      color: var(--red);
-    }
-
-    .subtitle {
-      margin-top: 8px;
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--gray);
-      letter-spacing: 0.5px;
-    }
-
-    /* CARD */
+    /* ─── CARD ─── */
     .card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 32px 28px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05) inset;
+      width: 100%; background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border); border-radius: 12px; padding: 30px 26px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
     }
 
-    /* FORM GROUPS */
-    .form-group {
-      margin-bottom: 22px;
+    /* ─── LOGIN ─── */
+    #loginWrap { max-width: 400px; }
+    .lock-icon {
+      width: 60px; height: 60px; background: rgba(200,16,46,0.1);
+      border: 2px solid rgba(200,16,46,0.35); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 18px;
     }
+    .lock-icon svg { width: 26px; height: 26px; stroke: var(--red); fill: none; stroke-width: 2; }
+    .login-title {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 21px; font-weight: 800;
+      color: white; text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 4px; text-align: center;
+    }
+    .login-sub { font-size: 13px; color: var(--gray); text-align: center; margin-bottom: 26px; }
 
     label {
-      display: block;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-bottom: 8px;
+      display: block; font-size: 11px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); margin-bottom: 7px;
     }
+    .form-group { margin-bottom: 18px; }
 
-    label .required {
-      color: var(--red);
-      margin-left: 3px;
+    input[type="text"], input[type="password"],
+    input[type="datetime-local"], select, textarea {
+      width: 100%; background: var(--input-bg); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--white); font-family: 'Barlow', sans-serif;
+      font-size: 15px; padding: 12px 15px; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s; -webkit-appearance: none;
     }
-
-    label .optional {
-      font-size: 10px;
-      font-weight: 400;
-      color: rgba(160,174,192,0.5);
-      letter-spacing: 0.5px;
-      text-transform: none;
-      margin-left: 4px;
-    }
-
-    input[type="text"],
-    input[type="datetime-local"],
-    select,
-    textarea {
-      width: 100%;
-      background: var(--input-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--white);
-      font-family: 'Barlow', sans-serif;
-      font-size: 15px;
-      font-weight: 400;
-      padding: 13px 16px;
-      outline: none;
-      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    input[type="datetime-local"] {
-      color-scheme: dark;
-    }
-
-    input::placeholder, textarea::placeholder {
-      color: rgba(160,174,192,0.4);
-    }
-
+    input[type="datetime-local"] { color-scheme: dark; }
+    input::placeholder, textarea::placeholder { color: rgba(160,174,192,0.35); }
     input:focus, select:focus, textarea:focus {
-      border-color: var(--red);
-      background: var(--input-focus);
-      box-shadow: 0 0 0 3px rgba(200,16,46,0.15);
+      border-color: var(--red); box-shadow: 0 0 0 3px rgba(200,16,46,0.13);
+    }
+    textarea { resize: vertical; min-height: 80px; }
+    select option { background: var(--navy-mid); }
+
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: ''; position: absolute; right: 14px; top: 50%;
+      transform: translateY(-50%); border: 5px solid transparent;
+      border-top-color: var(--gray); pointer-events: none;
     }
 
-    textarea {
-      resize: vertical;
-      min-height: 90px;
+    .error-box {
+      background: rgba(200,16,46,0.1); border: 1px solid rgba(200,16,46,0.3);
+      border-radius: 8px; padding: 10px 14px; color: #ff6b6b;
+      font-size: 13px; margin-bottom: 14px; display: none;
     }
 
-    /* SELECT custom arrow */
-    .select-wrapper {
-      position: relative;
+    .btn-primary {
+      width: 100%; background: var(--red); color: white; border: none;
+      border-radius: 8px; padding: 14px;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 4px 20px rgba(200,16,46,0.3);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
     }
-    .select-wrapper::after {
-      content: '';
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      border: 5px solid transparent;
-      border-top-color: var(--gray);
-      pointer-events: none;
-    }
-    select option {
-      background: var(--navy-mid);
-      color: var(--white);
-    }
-    select option:disabled {
-      color: rgba(160,174,192,0.4);
-    }
+    .btn-primary:hover { background: var(--red-hover); }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; pointer-events: none; }
 
-    /* DIVIDER */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 8px 0 26px;
-    }
+    /* ─── MAIN APP ─── */
+    #appWrap { display: none; max-width: 860px; }
 
-    .section-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgba(160,174,192,0.4);
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 28px; flex-wrap: wrap; gap: 10px;
     }
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+    .user-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      border-radius: 20px; padding: 6px 14px;
     }
+    .user-badge span { font-size: 13px; color: var(--gray); }
+    .user-badge strong { color: white; font-weight: 600; }
+    .btn-sair {
+      background: transparent; border: 1px solid var(--border); color: var(--gray);
+      border-radius: 6px; padding: 7px 14px; font-size: 12px; cursor: pointer;
+      font-family: 'Barlow', sans-serif; transition: all 0.2s;
+    }
+    .btn-sair:hover { color: white; border-color: rgba(255,255,255,0.3); }
 
-    /* SUBMIT BUTTON */
-    .btn-submit {
-      width: 100%;
-      background: var(--red);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 16px;
+    /* TABS */
+    .tabs {
+      display: flex; background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border); border-radius: 10px; padding: 4px; gap: 4px;
+      margin-bottom: 28px;
+    }
+    .tab {
+      flex: 1; padding: 10px; text-align: center; border: none; background: transparent;
+      color: var(--gray); font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; cursor: pointer; border-radius: 8px; transition: all 0.2s;
+    }
+    .tab.active { background: var(--red); color: white; }
+    .tab:hover:not(.active) { background: rgba(255,255,255,0.06); color: white; }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ─── FORM AGENDAMENTO ─── */
+    .required { color: var(--red); margin-left: 2px; }
+    .optional { font-size: 10px; font-weight: 400; opacity: 0.5; margin-left: 4px; text-transform: none; letter-spacing: 0; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 6px 0 22px; }
+    .section-lbl {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(160,174,192,0.4);
+      display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+    }
+    .section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .has-error input, .has-error select { border-color: #ff6b6b !important; }
+    .err-msg { font-size: 12px; color: #ff6b6b; margin-top: 5px; display: none; }
+    .has-error .err-msg { display: block; }
+
+    /* ─── LISTA AGENDAMENTOS ─── */
+    .list-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px; flex-wrap: wrap; gap: 10px;
+    }
+    .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+    .f-btn {
+      padding: 6px 13px; border-radius: 20px; border: 1px solid var(--border);
+      background: transparent; color: var(--gray); font-size: 12px;
+      cursor: pointer; transition: all 0.2s; font-family: 'Barlow', sans-serif;
+    }
+    .f-btn.active { background: var(--red); border-color: var(--red); color: white; }
+    .f-btn:hover:not(.active) { color: white; border-color: rgba(255,255,255,0.3); }
+
+    .btn-refresh {
+      background: transparent; border: 1px solid var(--border); color: var(--gray);
+      border-radius: 6px; padding: 7px 14px; font-size: 12px; cursor: pointer;
+      font-family: 'Barlow', sans-serif; transition: all 0.2s;
+    }
+    .btn-refresh:hover { color: white; border-color: rgba(255,255,255,0.3); }
+
+    .loading-state { text-align: center; padding: 48px; color: var(--gray); font-size: 14px; }
+    .spinner {
+      width: 28px; height: 28px; border: 3px solid rgba(255,255,255,0.08);
+      border-top-color: var(--red); border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 0 auto 10px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .events-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .ev-card {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 10px; padding: 15px 17px;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 14px; transition: background 0.2s;
+    }
+    .ev-card:hover { background: rgba(255,255,255,0.07); }
+
+    .ev-left { display: flex; gap: 14px; flex: 1; min-width: 0; }
+
+    .ev-datebox {
+      background: var(--red); border-radius: 8px; padding: 7px 10px;
+      text-align: center; flex-shrink: 0; min-width: 50px;
+    }
+    .ev-datebox .d {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      box-shadow: 0 4px 24px rgba(200,16,46,0.3);
+      font-size: 22px; font-weight: 800; color: white; line-height: 1;
     }
+    .ev-datebox .m { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1px; }
 
-    .btn-submit:hover {
-      background: var(--red-hover);
-      box-shadow: 0 6px 28px rgba(200,16,46,0.45);
+    .ev-info { flex: 1; min-width: 0; }
+    .ev-title {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 17px;
+      font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.5px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
+    .ev-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px; }
+    .ev-meta span { font-size: 12px; color: var(--gray); display: flex; align-items: center; gap: 3px; }
+    .ev-footer { font-size: 11px; color: rgba(160,174,192,0.45); margin-top: 5px; }
 
-    .btn-submit:active {
-      transform: scale(0.98);
+    .badge {
+      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+      text-transform: uppercase; letter-spacing: 0.5px;
     }
+    .b-cd    { background: rgba(46,204,113,0.12); color: #2ecc71; border: 1px solid rgba(46,204,113,0.3); }
+    .b-matriz { background: rgba(52,152,219,0.12); color: #3498db; border: 1px solid rgba(52,152,219,0.3); }
+    .b-filiais { background: rgba(243,156,18,0.12); color: #f39c12; border: 1px solid rgba(243,156,18,0.3); }
 
-    .btn-submit svg {
-      width: 18px; height: 18px;
+    .ev-actions { display: flex; gap: 7px; flex-shrink: 0; }
+    .btn-edit, .btn-del {
+      border: none; border-radius: 6px; padding: 7px 11px;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.2s;
     }
+    .btn-edit { background: rgba(52,152,219,0.12); border: 1px solid rgba(52,152,219,0.3); color: #3498db; }
+    .btn-edit:hover { background: rgba(52,152,219,0.25); }
+    .btn-del { background: rgba(200,16,46,0.1); border: 1px solid rgba(200,16,46,0.2); color: #ff6b6b; }
+    .btn-del:hover { background: rgba(200,16,46,0.22); }
 
-    .btn-submit.loading {
-      opacity: 0.7;
-      cursor: not-allowed;
-      pointer-events: none;
+    .empty { text-align: center; padding: 48px; color: var(--gray); font-size: 14px; }
+    .empty .ico { font-size: 34px; margin-bottom: 8px; }
+
+    /* ─── MODAIS ─── */
+    .overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.72); backdrop-filter: blur(4px);
+      z-index: 100; align-items: center; justify-content: center; padding: 16px;
     }
+    .overlay.show { display: flex; }
 
-    /* SUCCESS STATE */
-    .success-overlay {
-      display: none;
-      text-align: center;
-      padding: 40px 20px;
+    .modal {
+      background: var(--navy-mid); border: 1px solid var(--border); border-radius: 14px;
+      padding: 26px 22px; width: 100%; max-width: 460px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6); max-height: 90vh; overflow-y: auto;
     }
-
-    .success-overlay.show { display: block; }
-    .card.hide-form .form-content { display: none; }
-    .card.hide-form .success-overlay { display: block; }
-
-    .success-icon {
-      width: 64px; height: 64px;
-      background: rgba(200,16,46,0.15);
-      border-radius: 50%;
+    .modal-hdr {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;
+    }
+    .modal-ttl {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 18px;
+      font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .btn-x {
+      background: transparent; border: none; color: var(--gray);
+      font-size: 20px; cursor: pointer; width: 28px; height: 28px;
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 20px;
-      border: 2px solid var(--red);
+      border-radius: 6px; transition: all 0.2s;
+    }
+    .btn-x:hover { background: rgba(255,255,255,0.1); color: white; }
+
+    .modal .form-group { margin-bottom: 14px; }
+    .modal input, .modal select, .modal textarea {
+      font-size: 14px; padding: 10px 13px;
     }
 
-    .success-icon svg { width: 32px; height: 32px; stroke: var(--red); fill: none; stroke-width: 2.5; }
+    .modal-ftr { display: flex; gap: 10px; margin-top: 6px; }
+    .btn-save {
+      flex: 1; background: var(--red); color: white; border: none;
+      border-radius: 8px; padding: 12px;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: background 0.2s;
+    }
+    .btn-save:hover { background: var(--red-hover); }
+    .btn-cancel {
+      background: transparent; border: 1px solid var(--border); color: var(--gray);
+      border-radius: 8px; padding: 12px 18px;
+      font-family: 'Barlow', sans-serif; font-size: 14px; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-cancel:hover { color: white; border-color: rgba(255,255,255,0.3); }
 
-    .success-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 26px;
-      font-weight: 800;
-      color: white;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
+    /* Confirm delete */
+    #confirmOverlay .modal { max-width: 360px; text-align: center; }
+    .conf-ttl {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 19px;
+      font-weight: 800; color: white; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .conf-txt { font-size: 13px; color: var(--gray); margin-bottom: 16px; line-height: 1.6; }
+    .conf-name {
+      background: rgba(255,255,255,0.05); border-radius: 6px;
+      padding: 8px 14px; font-size: 14px; font-weight: 600; color: white; margin-bottom: 20px;
     }
 
-    .success-text {
-      font-size: 14px;
-      color: var(--gray);
-      line-height: 1.6;
-      margin-bottom: 24px;
+    /* SUCCESS OVERLAY (form) */
+    .success-area { display: none; text-align: center; padding: 20px 0; }
+    .success-area.show { display: block; }
+    .success-ico {
+      width: 56px; height: 56px; background: rgba(200,16,46,0.12);
+      border: 2px solid var(--red); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
     }
-
-    .success-details {
-      background: var(--input-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      text-align: left;
-      margin-bottom: 24px;
+    .success-ico svg { width: 28px; height: 28px; stroke: var(--red); fill: none; stroke-width: 2.5; }
+    .success-ttl {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 22px;
+      font-weight: 800; color: white; text-transform: uppercase; margin-bottom: 6px;
     }
-
-    .success-details p {
-      font-size: 13px;
-      color: var(--gray);
-      padding: 4px 0;
+    .success-det {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px; text-align: left; margin: 16px 0;
     }
-
-    .success-details p strong {
-      color: white;
-      font-weight: 600;
-    }
-
+    .success-det p { font-size: 13px; color: var(--gray); padding: 3px 0; }
+    .success-det p strong { color: white; }
     .btn-novo {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--gray);
-      border-radius: 8px;
-      padding: 12px 24px;
-      font-family: 'Barlow', sans-serif;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.2s;
+      background: transparent; border: 1px solid var(--border); color: var(--gray);
+      border-radius: 8px; padding: 11px 22px; font-family: 'Barlow', sans-serif;
+      font-size: 13px; cursor: pointer; transition: all 0.2s;
     }
+    .btn-novo:hover { color: white; border-color: rgba(255,255,255,0.3); }
 
-    .btn-novo:hover {
-      border-color: rgba(255,255,255,0.3);
-      color: white;
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: rgba(13,27,62,0.97); border: 1px solid var(--border);
+      border-radius: 8px; padding: 11px 20px; color: white; font-size: 14px;
+      z-index: 200; box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      display: none; align-items: center; gap: 8px; white-space: nowrap;
     }
+    .toast.show { display: flex; }
 
-    /* ERROR */
-    .error-msg {
-      font-size: 12px;
-      color: #ff6b6b;
-      margin-top: 5px;
-      display: none;
-    }
-    .form-group.has-error input,
-    .form-group.has-error select {
-      border-color: #ff6b6b;
-    }
-    .form-group.has-error .error-msg { display: block; }
-
-    /* FOOTER */
-    .footer {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 11px;
-      color: rgba(160,174,192,0.3);
-      letter-spacing: 0.5px;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 480px) {
-      .card { padding: 24px 18px; }
-      body { padding: 16px 12px; }
+    @media (max-width: 580px) {
+      .card { padding: 20px 14px; }
+      .ev-card { flex-direction: column; }
+      .ev-actions { width: 100%; }
+      .btn-edit, .btn-del { flex: 1; justify-content: center; }
     }
   </style>
 </head>
 <body>
 
-<div class="wrapper">
-
-  <div class="header">
-    <div class="logo-band">
-      <svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-7 3a4 4 0 110 8 4 4 0 010-8zm0 10c-4 0-6 2-6 3v1h12v-1c0-1-2-3-6-3z"/></svg>
-      <span>Comercial do Norte</span>
-    </div>
-    <h1>Agendamentos <span>CD</span></h1>
-    <p class="subtitle">Preencha os dados para registrar o agendamento no calendário</p>
-  </div>
-
-  <div class="card" id="mainCard">
-
-    <div class="form-content">
-      <form id="agendamentoForm" novalidate>
-
-        <!-- FORNECEDOR -->
-        <div class="form-group" id="grp-fornecedor">
-          <label for="fornecedor">Fornecedor <span class="required">*</span></label>
-          <input type="text" id="fornecedor" name="fornecedor" placeholder="Nome do fornecedor" autocomplete="organization" />
-          <p class="error-msg">Informe o nome do fornecedor.</p>
-        </div>
-
-        <!-- DATA -->
-        <div class="form-group" id="grp-data">
-          <label for="dataAgendamento">Data e Hora do Agendamento <span class="required">*</span></label>
-          <input type="datetime-local" id="dataAgendamento" name="dataAgendamento" />
-          <p class="error-msg">Selecione a data e hora.</p>
-        </div>
-
-        <!-- DEPÓSITO -->
-        <div class="form-group" id="grp-deposito">
-          <label for="deposito">Depósito <span class="required">*</span></label>
-          <div class="select-wrapper">
-            <select id="deposito" name="deposito">
-              <option value="" disabled selected>Selecione o depósito</option>
-              <option value="CD">CD — Centro de Distribuição</option>
-              <option value="Matriz">Matriz</option>
-              <option value="Filiais">Filiais</option>
-            </select>
-          </div>
-          <p class="error-msg">Selecione um depósito.</p>
-        </div>
-
-        <hr class="divider" />
-        <p class="section-label">Informações Adicionais</p>
-
-        <!-- VOLUME -->
-        <div class="form-group">
-          <label for="volume">Quantidade de Volume <span class="optional">(opcional)</span></label>
-          <input type="text" id="volume" name="volume" placeholder="Ex: 20 pallets, 500 caixas..." />
-        </div>
-
-        <!-- PRODUTOS -->
-        <div class="form-group">
-          <label for="produtos">Produtos Principais <span class="optional">(opcional)</span></label>
-          <textarea id="produtos" name="produtos" placeholder="Liste os principais produtos da entrega..."></textarea>
-        </div>
-
-        <button type="submit" class="btn-submit" id="btnSubmit">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2"/>
-            <line x1="16" y1="2" x2="16" y2="6"/>
-            <line x1="8" y1="2" x2="8" y2="6"/>
-            <line x1="3" y1="10" x2="21" y2="10"/>
-          </svg>
-          Agendar no Calendário
-        </button>
-
-      </form>
-    </div>
-
-    <!-- SUCCESS -->
-    <div class="success-overlay" id="successOverlay">
-      <div class="success-icon">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <p class="success-title">Agendado com sucesso!</p>
-      <p class="success-text">O agendamento foi registrado no Google Calendar e a equipe já foi notificada.</p>
-      <div class="success-details" id="successDetails"></div>
-      <button class="btn-novo" onclick="resetForm()">+ Novo Agendamento</button>
-    </div>
-
-  </div>
-
-  <p class="footer">Comercial do Norte &nbsp;•&nbsp; Sistema de Agendamentos</p>
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-band"><span>Comercial do Norte</span></div>
+  <h1>Agendamentos <span>CD</span></h1>
+  <p class="subtitle" id="headerSub">Acesse sua conta para gerenciar os agendamentos</p>
 </div>
 
+<!-- ══════ LOGIN ══════ -->
+<div class="card" id="loginWrap">
+  <div class="lock-icon">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2"/>
+      <path d="M7 11V7a5 5 0 0110 0v4"/>
+    </svg>
+  </div>
+  <p class="login-title">Acesso Restrito</p>
+  <p class="login-sub">Entre com suas credenciais</p>
+
+  <div class="error-box" id="loginError">Usuário ou senha incorretos. Tente novamente.</div>
+
+  <div class="form-group">
+    <label>Usuário</label>
+    <input type="text" id="iUser" placeholder="Digite seu usuário" autocomplete="username" />
+  </div>
+  <div class="form-group">
+    <label>Senha</label>
+    <input type="password" id="iPass" placeholder="••••••••" autocomplete="current-password"
+      onkeydown="if(event.key==='Enter') doLogin()" />
+  </div>
+  <button class="btn-primary" id="btnLogin" onclick="doLogin()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+    Entrar
+  </button>
+</div>
+
+<!-- ══════ APP ══════ -->
+<div class="card" id="appWrap">
+
+  <div class="topbar">
+    <div class="user-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span>Conectado como <strong id="userLabel">—</strong></span>
+    </div>
+    <button class="btn-sair" onclick="doLogout()">↩ Sair</button>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('form', this)">📋 Novo Agendamento</button>
+    <button class="tab" onclick="switchTab('list', this)" id="tabList">📦 Gerenciar</button>
+  </div>
+
+  <!-- TAB: FORM -->
+  <div class="tab-content active" id="tab-form">
+
+    <!-- Formulário -->
+    <div id="formArea">
+      <div class="form-group" id="grp-forn">
+        <label>Fornecedor <span class="required">*</span></label>
+        <input type="text" id="fFornecedor" placeholder="Nome do fornecedor" />
+        <p class="err-msg">Informe o fornecedor.</p>
+      </div>
+      <div class="form-group" id="grp-data">
+        <label>Data e Hora <span class="required">*</span></label>
+        <input type="datetime-local" id="fData" />
+        <p class="err-msg">Selecione a data e hora.</p>
+      </div>
+      <div class="form-group" id="grp-dep">
+        <label>Depósito <span class="required">*</span></label>
+        <div class="select-wrap">
+          <select id="fDeposito">
+            <option value="" disabled selected>Selecione o depósito</option>
+            <option value="CD">CD — Centro de Distribuição</option>
+            <option value="Matriz">Matriz</option>
+            <option value="Filiais">Filiais</option>
+          </select>
+        </div>
+        <p class="err-msg">Selecione um depósito.</p>
+      </div>
+
+      <hr class="divider" />
+      <p class="section-lbl">Informações Adicionais</p>
+
+      <div class="form-group">
+        <label>Volume <span class="optional">(opcional)</span></label>
+        <input type="text" id="fVolume" placeholder="Ex: 20 pallets, 500 caixas..." />
+      </div>
+      <div class="form-group">
+        <label>Produtos Principais <span class="optional">(opcional)</span></label>
+        <textarea id="fProdutos" placeholder="Liste os produtos..."></textarea>
+      </div>
+
+      <button class="btn-primary" id="btnAgendar" onclick="submitForm()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Agendar no Calendário
+      </button>
+    </div>
+
+    <!-- Sucesso -->
+    <div class="success-area" id="successArea">
+      <div class="success-ico">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <p class="success-ttl">Agendado com Sucesso!</p>
+      <p style="font-size:13px;color:var(--gray)">Evento registrado no Google Calendar.</p>
+      <div class="success-det" id="successDet"></div>
+      <button class="btn-novo" onclick="resetForm()">+ Novo Agendamento</button>
+    </div>
+  </div>
+
+  <!-- TAB: LISTA -->
+  <div class="tab-content" id="tab-list">
+    <div class="list-topbar">
+      <div class="filters">
+        <button class="f-btn active" onclick="filterEvs('todos',this)">Todos</button>
+        <button class="f-btn" onclick="filterEvs('CD',this)">CD</button>
+        <button class="f-btn" onclick="filterEvs('Matriz',this)">Matriz</button>
+        <button class="f-btn" onclick="filterEvs('Filiais',this)">Filiais</button>
+      </div>
+      <button class="btn-refresh" onclick="loadEvents()">↻ Atualizar</button>
+    </div>
+    <div id="evContainer">
+      <div class="loading-state"><div class="spinner"></div>Carregando...</div>
+    </div>
+  </div>
+
+</div><!-- /appWrap -->
+
+<!-- ══ MODAL EDITAR ══ -->
+<div class="overlay" id="editOverlay">
+  <div class="modal">
+    <div class="modal-hdr">
+      <p class="modal-ttl">✏️ Editar Agendamento</p>
+      <button class="btn-x" onclick="closeEdit()">✕</button>
+    </div>
+    <input type="hidden" id="eId" />
+    <div class="form-group">
+      <label>Fornecedor</label>
+      <input type="text" id="eFornecedor" placeholder="Fornecedor" />
+    </div>
+    <div class="form-group">
+      <label>Data e Hora</label>
+      <input type="datetime-local" id="eData" />
+    </div>
+    <div class="form-group">
+      <label>Depósito</label>
+      <div class="select-wrap">
+        <select id="eDeposito">
+          <option value="CD">CD</option>
+          <option value="Matriz">Matriz</option>
+          <option value="Filiais">Filiais</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Volume <span class="optional">(opcional)</span></label>
+      <input type="text" id="eVolume" placeholder="Ex: 20 pallets..." />
+    </div>
+    <div class="form-group">
+      <label>Produtos <span class="optional">(opcional)</span></label>
+      <textarea id="eProdutos" placeholder="Produtos..."></textarea>
+    </div>
+    <div class="modal-ftr">
+      <button class="btn-cancel" onclick="closeEdit()">Cancelar</button>
+      <button class="btn-save" onclick="saveEdit()">💾 Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL CONFIRMAR EXCLUSÃO ══ -->
+<div class="overlay" id="confirmOverlay">
+  <div class="modal">
+    <p class="conf-ttl">⚠️ Excluir Agendamento?</p>
+    <p class="conf-txt">Esta ação não pode ser desfeita. O evento será removido do Google Calendar.</p>
+    <div class="conf-name" id="confName">—</div>
+    <div class="modal-ftr">
+      <button class="btn-cancel" onclick="closeConfirm()">Cancelar</button>
+      <button class="btn-save" style="background:var(--red)" onclick="confirmDel()">🗑️ Excluir</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ Ok</div>
+
 <script>
-  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // ⚙️  CONFIGURE AQUI A URL DO WEBHOOK DO N8N
-  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  const N8N_WEBHOOK_URL = 'https://n8n.multiresponde.com.br/webhook/agendamento-cd';
-  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ⚙️ CONFIGURE APENAS ISSO:
+  const WH = {
+    login:   'https://n8n.multiresponde.com.br/webhook/agendamento-login',
+    criar:   'https://n8n.multiresponde.com.br/webhook/agendamento-cd',
+    listar:  'https://n8n.multiresponde.com.br/webhook/agendamento-listar',
+    editar:  'https://n8n.multiresponde.com.br/webhook/agendamento-editar',
+    excluir: 'https://n8n.multiresponde.com.br/webhook/agendamento-excluir',
+  };
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  // Set min date to today
-  const now = new Date();
-  const pad = n => String(n).padStart(2, '0');
-  const minDT = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
-  document.getElementById('dataAgendamento').min = minDT;
+  let currentUser = null;
+  let allEvents = [];
+  let deleteId = null;
+  let currentFilter = 'todos';
 
-  function validate() {
-    let valid = true;
-    const fields = [
-      { id: 'fornecedor', grp: 'grp-fornecedor' },
-      { id: 'dataAgendamento', grp: 'grp-data' },
-      { id: 'deposito', grp: 'grp-deposito' },
-    ];
-    fields.forEach(({ id, grp }) => {
-      const el = document.getElementById(id);
-      const grpEl = document.getElementById(grp);
-      if (!el.value.trim()) {
-        grpEl.classList.add('has-error');
-        valid = false;
+  // ── AUTO LOGIN ──
+  const saved = sessionStorage.getItem('cdLogin');
+  if (saved) { currentUser = saved; showApp(); }
+
+  // ── LOGIN ──
+  async function doLogin() {
+    const user = document.getElementById('iUser').value.trim();
+    const pass = document.getElementById('iPass').value;
+    const err  = document.getElementById('loginError');
+    const btn  = document.getElementById('btnLogin');
+
+    if (!user || !pass) { err.style.display='block'; err.textContent='Preencha usuário e senha.'; return; }
+
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner" style="width:18px;height:18px;margin:0"></div>';
+
+    try {
+      const res = await fetch(WH.login, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ login: user, senha: pass })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        err.style.display = 'none';
+        currentUser = user;
+        sessionStorage.setItem('cdLogin', user);
+        showApp();
       } else {
-        grpEl.classList.remove('has-error');
+        err.textContent = 'Usuário ou senha incorretos.';
+        err.style.display = 'block';
+        document.getElementById('iPass').value = '';
       }
+    } catch {
+      err.textContent = 'Erro de conexão. Verifique o n8n.';
+      err.style.display = 'block';
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg> Entrar';
+  }
+
+  function showApp() {
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('appWrap').style.display = 'block';
+    document.getElementById('userLabel').textContent = currentUser;
+    document.getElementById('headerSub').textContent = 'Painel de agendamentos';
+    // set min date
+    const now = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    document.getElementById('fData').min =
+      `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  }
+
+  function doLogout() {
+    sessionStorage.removeItem('cdLogin');
+    currentUser = null;
+    document.getElementById('loginWrap').style.display = 'block';
+    document.getElementById('appWrap').style.display = 'none';
+    document.getElementById('iUser').value = '';
+    document.getElementById('iPass').value = '';
+    document.getElementById('headerSub').textContent = 'Acesse sua conta para gerenciar os agendamentos';
+  }
+
+  // ── TABS ──
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+    if (name === 'list') loadEvents();
+  }
+
+  // ── CRIAR AGENDAMENTO ──
+  function validateForm() {
+    let ok = true;
+    [['fFornecedor','grp-forn'],['fData','grp-data'],['fDeposito','grp-dep']].forEach(([id,g]) => {
+      const el = document.getElementById(id);
+      const grp = document.getElementById(g);
+      if (!el.value.trim()) { grp.classList.add('has-error'); ok = false; }
+      else grp.classList.remove('has-error');
     });
-    return valid;
+    return ok;
   }
 
-  function formatDateBR(dtStr) {
-    const d = new Date(dtStr);
-    return d.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
-  }
-
-  document.getElementById('agendamentoForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
-
-    const btn = document.getElementById('btnSubmit');
-    btn.classList.add('loading');
-    btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="40" stroke-dashoffset="10" style="animation:spin 1s linear infinite;transform-origin:center"/></svg> Enviando...`;
+  async function submitForm() {
+    if (!validateForm()) return;
+    const btn = document.getElementById('btnAgendar');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner" style="width:18px;height:18px;margin:0"></div> Agendando...';
 
     const payload = {
-      fornecedor: document.getElementById('fornecedor').value.trim(),
-      dataAgendamento: document.getElementById('dataAgendamento').value,
-      deposito: document.getElementById('deposito').value,
-      volume: document.getElementById('volume').value.trim() || null,
-      produtos: document.getElementById('produtos').value.trim() || null,
+      fornecedor:      document.getElementById('fFornecedor').value.trim(),
+      dataAgendamento: document.getElementById('fData').value,
+      deposito:        document.getElementById('fDeposito').value,
+      volume:          document.getElementById('fVolume').value.trim() || null,
+      produtos:        document.getElementById('fProdutos').value.trim() || null,
+      agendadoPor:     currentUser,
     };
 
     try {
-      const res = await fetch(N8N_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch(WH.criar, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
+      if (!res.ok) throw new Error();
 
-      if (!res.ok) throw new Error('Erro na requisição');
-
-      // Show success
-      document.getElementById('mainCard').classList.add('hide-form');
-      document.getElementById('successDetails').innerHTML = `
+      const dt = new Date(payload.dataAgendamento);
+      document.getElementById('successDet').innerHTML = `
         <p><strong>🏢 Fornecedor:</strong> ${payload.fornecedor}</p>
-        <p><strong>📅 Data:</strong> ${formatDateBR(payload.dataAgendamento)}</p>
+        <p><strong>📅 Data:</strong> ${dt.toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</p>
         <p><strong>📦 Depósito:</strong> ${payload.deposito}</p>
         ${payload.volume ? `<p><strong>🔢 Volume:</strong> ${payload.volume}</p>` : ''}
         ${payload.produtos ? `<p><strong>📋 Produtos:</strong> ${payload.produtos}</p>` : ''}
+        <p><strong>👤 Agendado por:</strong> ${currentUser}</p>
       `;
-
-    } catch (err) {
-      alert('Erro ao enviar agendamento. Verifique a conexão e tente novamente.');
-      btn.classList.remove('loading');
-      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Agendar no Calendário`;
+      document.getElementById('formArea').style.display = 'none';
+      document.getElementById('successArea').classList.add('show');
+    } catch {
+      showToast('❌ Erro ao agendar. Tente novamente.', 'error');
     }
-  });
+
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Agendar no Calendário';
+  }
 
   function resetForm() {
-    document.getElementById('agendamentoForm').reset();
-    document.getElementById('mainCard').classList.remove('hide-form');
-    ['grp-fornecedor','grp-data','grp-deposito'].forEach(id => {
-      document.getElementById(id).classList.remove('has-error');
-    });
-    const btn = document.getElementById('btnSubmit');
-    btn.classList.remove('loading');
-    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Agendar no Calendário`;
+    document.getElementById('fFornecedor').value = '';
+    document.getElementById('fData').value = '';
+    document.getElementById('fDeposito').value = '';
+    document.getElementById('fVolume').value = '';
+    document.getElementById('fProdutos').value = '';
+    ['grp-forn','grp-data','grp-dep'].forEach(id => document.getElementById(id).classList.remove('has-error'));
+    document.getElementById('formArea').style.display = 'block';
+    document.getElementById('successArea').classList.remove('show');
   }
-</script>
 
-<style>
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  // ── LISTAR ──
+  async function loadEvents() {
+    document.getElementById('evContainer').innerHTML =
+      '<div class="loading-state"><div class="spinner"></div>Carregando agendamentos...</div>';
+    try {
+      const res = await fetch(WH.listar);
+      const data = await res.json();
+      allEvents = Array.isArray(data) ? data : (data.events || []);
+      renderEvents(currentFilter);
+    } catch {
+      document.getElementById('evContainer').innerHTML =
+        '<div class="empty"><div class="ico">⚠️</div>Erro ao carregar. Verifique se o workflow está ativo.</div>';
+    }
   }
-</style>
+
+  function renderEvents(filter) {
+    const list = filter === 'todos' ? allEvents : allEvents.filter(e => e.deposito === filter);
+    list.sort((a,b) => new Date(a.start) - new Date(b.start));
+    if (!list.length) {
+      document.getElementById('evContainer').innerHTML =
+        '<div class="empty"><div class="ico">📭</div>Nenhum agendamento encontrado.</div>';
+      return;
+    }
+    document.getElementById('evContainer').innerHTML =
+      `<div class="events-list">${list.map(buildCard).join('')}</div>`;
+  }
+
+  function filterEvs(dep, btn) {
+    currentFilter = dep;
+    document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderEvents(dep);
+  }
+
+  const MONTHS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+
+  function buildCard(ev) {
+    const dt = new Date(ev.start);
+    const day = String(dt.getDate()).padStart(2,'0');
+    const mon = MONTHS[dt.getMonth()];
+    const time = `${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;
+    const dep = ev.deposito || '—';
+    const bc = dep==='CD'?'b-cd':dep==='Matriz'?'b-matriz':'b-filiais';
+    const footer = [
+      ev.agendadoPor ? `👤 Agendado por: <strong style="color:rgba(255,255,255,0.6)">${ev.agendadoPor}</strong>` : '',
+      ev.alteradoPor ? `✏️ Alterado por: <strong style="color:rgba(255,255,255,0.6)">${ev.alteradoPor}</strong>` : ''
+    ].filter(Boolean).join(' &nbsp;|&nbsp; ');
+
+    return `<div class="ev-card">
+      <div class="ev-left">
+        <div class="ev-datebox"><div class="d">${day}</div><div class="m">${mon}</div></div>
+        <div class="ev-info">
+          <div class="ev-title">${ev.fornecedor || '—'}</div>
+          <div class="ev-meta">
+            <span>🕐 ${time}</span>
+            <span class="badge ${bc}">${dep}</span>
+            ${ev.volume ? `<span>📦 ${ev.volume}</span>` : ''}
+            ${ev.produtos ? `<span>📋 ${ev.produtos.substring(0,28)}${ev.produtos.length>28?'...':''}</span>` : ''}
+          </div>
+          ${footer ? `<div class="ev-footer">${footer}</div>` : ''}
+        </div>
+      </div>
+      <div class="ev-actions">
+        <button class="btn-edit" onclick='openEdit(${JSON.stringify(ev)})'>✏️</button>
+        <button class="btn-del" onclick='openConfirm("${ev.id}","${(ev.fornecedor||'').replace(/"/g,'')}")'>🗑️</button>
+      </div>
+    </div>`;
+  }
+
+  // ── EDITAR ──
+  function openEdit(ev) {
+    document.getElementById('eId').value = ev.id;
+    document.getElementById('eFornecedor').value = ev.fornecedor || '';
+    document.getElementById('eDeposito').value = ev.deposito || 'CD';
+    document.getElementById('eVolume').value = ev.volume || '';
+    document.getElementById('eProdutos').value = ev.produtos || '';
+    if (ev.start) {
+      const d = new Date(ev.start);
+      const pad = n => String(n).padStart(2,'0');
+      document.getElementById('eData').value =
+        `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+    document.getElementById('editOverlay').classList.add('show');
+  }
+  function closeEdit() { document.getElementById('editOverlay').classList.remove('show'); }
+
+  async function saveEdit() {
+    const payload = {
+      id:              document.getElementById('eId').value,
+      fornecedor:      document.getElementById('eFornecedor').value.trim(),
+      dataAgendamento: document.getElementById('eData').value,
+      deposito:        document.getElementById('eDeposito').value,
+      volume:          document.getElementById('eVolume').value.trim() || null,
+      produtos:        document.getElementById('eProdutos').value.trim() || null,
+      alteradoPor:     currentUser,
+    };
+    try {
+      const res = await fetch(WH.editar, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error();
+      closeEdit();
+      showToast('✅ Agendamento atualizado!');
+      setTimeout(loadEvents, 700);
+    } catch { showToast('❌ Erro ao salvar.', 'error'); }
+  }
+
+  // ── EXCLUIR ──
+  function openConfirm(id, name) {
+    deleteId = id;
+    document.getElementById('confName').textContent = name;
+    document.getElementById('confirmOverlay').classList.add('show');
+  }
+  function closeConfirm() { document.getElementById('confirmOverlay').classList.remove('show'); deleteId = null; }
+
+  async function confirmDel() {
+    try {
+      const res = await fetch(WH.excluir, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: deleteId, excluidoPor: currentUser })
+      });
+      if (!res.ok) throw new Error();
+      closeConfirm();
+      showToast('🗑️ Agendamento excluído!');
+      setTimeout(loadEvents, 700);
+    } catch { showToast('❌ Erro ao excluir.', 'error'); }
+  }
+
+  // ── UTILS ──
+  function showToast(msg, type='success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.className = `toast show ${type}`;
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  document.getElementById('editOverlay').addEventListener('click', e => { if(e.target===document.getElementById('editOverlay')) closeEdit(); });
+  document.getElementById('confirmOverlay').addEventListener('click', e => { if(e.target===document.getElementById('confirmOverlay')) closeConfirm(); });
+</script>
 </body>
 </html>
