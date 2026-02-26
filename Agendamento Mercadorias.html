@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agendamentos CD Comercial do Norte</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0d1b3e;
+      --navy-mid: #162244;
+      --navy-light: #1e3060;
+      --red: #c8102e;
+      --red-hover: #a50d24;
+      --white: #ffffff;
+      --off-white: #f0f3f8;
+      --gray: #a0aec0;
+      --border: rgba(255,255,255,0.12);
+      --input-bg: rgba(255,255,255,0.06);
+      --input-focus: rgba(200,16,46,0.2);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--navy);
+      background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(200,16,46,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 100%, rgba(30,48,96,0.8) 0%, transparent 60%),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 39px,
+          rgba(255,255,255,0.025) 39px,
+          rgba(255,255,255,0.025) 40px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 39px,
+          rgba(255,255,255,0.025) 39px,
+          rgba(255,255,255,0.025) 40px
+        );
+      font-family: 'Barlow', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 560px;
+    }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .logo-band {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--red);
+      padding: 6px 20px;
+      border-radius: 2px;
+      margin-bottom: 16px;
+    }
+
+    .logo-band svg {
+      width: 18px; height: 18px; fill: white; opacity: 0.9;
+    }
+
+    .logo-band span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: white;
+    }
+
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(26px, 7vw, 38px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: 0.5px;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    h1 span {
+      color: var(--red);
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--gray);
+      letter-spacing: 0.5px;
+    }
+
+    /* CARD */
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05) inset;
+    }
+
+    /* FORM GROUPS */
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 8px;
+    }
+
+    label .required {
+      color: var(--red);
+      margin-left: 3px;
+    }
+
+    label .optional {
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(160,174,192,0.5);
+      letter-spacing: 0.5px;
+      text-transform: none;
+      margin-left: 4px;
+    }
+
+    input[type="text"],
+    input[type="datetime-local"],
+    select,
+    textarea {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      padding: 13px 16px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    input[type="datetime-local"] {
+      color-scheme: dark;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: rgba(160,174,192,0.4);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--red);
+      background: var(--input-focus);
+      box-shadow: 0 0 0 3px rgba(200,16,46,0.15);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    /* SELECT custom arrow */
+    .select-wrapper {
+      position: relative;
+    }
+    .select-wrapper::after {
+      content: '';
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--gray);
+      pointer-events: none;
+    }
+    select option {
+      background: var(--navy-mid);
+      color: var(--white);
+    }
+    select option:disabled {
+      color: rgba(160,174,192,0.4);
+    }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 8px 0 26px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(160,174,192,0.4);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* SUBMIT BUTTON */
+    .btn-submit {
+      width: 100%;
+      background: var(--red);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 24px rgba(200,16,46,0.3);
+    }
+
+    .btn-submit:hover {
+      background: var(--red-hover);
+      box-shadow: 0 6px 28px rgba(200,16,46,0.45);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.98);
+    }
+
+    .btn-submit svg {
+      width: 18px; height: 18px;
+    }
+
+    .btn-submit.loading {
+      opacity: 0.7;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* SUCCESS STATE */
+    .success-overlay {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .success-overlay.show { display: block; }
+    .card.hide-form .form-content { display: none; }
+    .card.hide-form .success-overlay { display: block; }
+
+    .success-icon {
+      width: 64px; height: 64px;
+      background: rgba(200,16,46,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      border: 2px solid var(--red);
+    }
+
+    .success-icon svg { width: 32px; height: 32px; stroke: var(--red); fill: none; stroke-width: 2.5; }
+
+    .success-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .success-text {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .success-details {
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+
+    .success-details p {
+      font-size: 13px;
+      color: var(--gray);
+      padding: 4px 0;
+    }
+
+    .success-details p strong {
+      color: white;
+      font-weight: 600;
+    }
+
+    .btn-novo {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--gray);
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-novo:hover {
+      border-color: rgba(255,255,255,0.3);
+      color: white;
+    }
+
+    /* ERROR */
+    .error-msg {
+      font-size: 12px;
+      color: #ff6b6b;
+      margin-top: 5px;
+      display: none;
+    }
+    .form-group.has-error input,
+    .form-group.has-error select {
+      border-color: #ff6b6b;
+    }
+    .form-group.has-error .error-msg { display: block; }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 11px;
+      color: rgba(160,174,192,0.3);
+      letter-spacing: 0.5px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      .card { padding: 24px 18px; }
+      body { padding: 16px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <div class="header">
+    <div class="logo-band">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-7 3a4 4 0 110 8 4 4 0 010-8zm0 10c-4 0-6 2-6 3v1h12v-1c0-1-2-3-6-3z"/></svg>
+      <span>Comercial do Norte</span>
+    </div>
+    <h1>Agendamentos <span>CD</span></h1>
+    <p class="subtitle">Preencha os dados para registrar o agendamento no calendário</p>
+  </div>
+
+  <div class="card" id="mainCard">
+
+    <div class="form-content">
+      <form id="agendamentoForm" novalidate>
+
+        <!-- FORNECEDOR -->
+        <div class="form-group" id="grp-fornecedor">
+          <label for="fornecedor">Fornecedor <span class="required">*</span></label>
+          <input type="text" id="fornecedor" name="fornecedor" placeholder="Nome do fornecedor" autocomplete="organization" />
+          <p class="error-msg">Informe o nome do fornecedor.</p>
+        </div>
+
+        <!-- DATA -->
+        <div class="form-group" id="grp-data">
+          <label for="dataAgendamento">Data e Hora do Agendamento <span class="required">*</span></label>
+          <input type="datetime-local" id="dataAgendamento" name="dataAgendamento" />
+          <p class="error-msg">Selecione a data e hora.</p>
+        </div>
+
+        <!-- DEPÓSITO -->
+        <div class="form-group" id="grp-deposito">
+          <label for="deposito">Depósito <span class="required">*</span></label>
+          <div class="select-wrapper">
+            <select id="deposito" name="deposito">
+              <option value="" disabled selected>Selecione o depósito</option>
+              <option value="CD">CD — Centro de Distribuição</option>
+              <option value="Matriz">Matriz</option>
+              <option value="Filiais">Filiais</option>
+            </select>
+          </div>
+          <p class="error-msg">Selecione um depósito.</p>
+        </div>
+
+        <hr class="divider" />
+        <p class="section-label">Informações Adicionais</p>
+
+        <!-- VOLUME -->
+        <div class="form-group">
+          <label for="volume">Quantidade de Volume <span class="optional">(opcional)</span></label>
+          <input type="text" id="volume" name="volume" placeholder="Ex: 20 pallets, 500 caixas..." />
+        </div>
+
+        <!-- PRODUTOS -->
+        <div class="form-group">
+          <label for="produtos">Produtos Principais <span class="optional">(opcional)</span></label>
+          <textarea id="produtos" name="produtos" placeholder="Liste os principais produtos da entrega..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnSubmit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Agendar no Calendário
+        </button>
+
+      </form>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-overlay" id="successOverlay">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <p class="success-title">Agendado com sucesso!</p>
+      <p class="success-text">O agendamento foi registrado no Google Calendar e a equipe já foi notificada.</p>
+      <div class="success-details" id="successDetails"></div>
+      <button class="btn-novo" onclick="resetForm()">+ Novo Agendamento</button>
+    </div>
+
+  </div>
+
+  <p class="footer">Comercial do Norte &nbsp;•&nbsp; Sistema de Agendamentos</p>
+</div>
+
+<script>
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ⚙️  CONFIGURE AQUI A URL DO WEBHOOK DO N8N
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  const N8N_WEBHOOK_URL = 'https://n8n.multiresponde.com.br/webhook/agendamento-cd';
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  // Set min date to today
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const minDT = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  document.getElementById('dataAgendamento').min = minDT;
+
+  function validate() {
+    let valid = true;
+    const fields = [
+      { id: 'fornecedor', grp: 'grp-fornecedor' },
+      { id: 'dataAgendamento', grp: 'grp-data' },
+      { id: 'deposito', grp: 'grp-deposito' },
+    ];
+    fields.forEach(({ id, grp }) => {
+      const el = document.getElementById(id);
+      const grpEl = document.getElementById(grp);
+      if (!el.value.trim()) {
+        grpEl.classList.add('has-error');
+        valid = false;
+      } else {
+        grpEl.classList.remove('has-error');
+      }
+    });
+    return valid;
+  }
+
+  function formatDateBR(dtStr) {
+    const d = new Date(dtStr);
+    return d.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
+  }
+
+  document.getElementById('agendamentoForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    const btn = document.getElementById('btnSubmit');
+    btn.classList.add('loading');
+    btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="40" stroke-dashoffset="10" style="animation:spin 1s linear infinite;transform-origin:center"/></svg> Enviando...`;
+
+    const payload = {
+      fornecedor: document.getElementById('fornecedor').value.trim(),
+      dataAgendamento: document.getElementById('dataAgendamento').value,
+      deposito: document.getElementById('deposito').value,
+      volume: document.getElementById('volume').value.trim() || null,
+      produtos: document.getElementById('produtos').value.trim() || null,
+    };
+
+    try {
+      const res = await fetch(N8N_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) throw new Error('Erro na requisição');
+
+      // Show success
+      document.getElementById('mainCard').classList.add('hide-form');
+      document.getElementById('successDetails').innerHTML = `
+        <p><strong>🏢 Fornecedor:</strong> ${payload.fornecedor}</p>
+        <p><strong>📅 Data:</strong> ${formatDateBR(payload.dataAgendamento)}</p>
+        <p><strong>📦 Depósito:</strong> ${payload.deposito}</p>
+        ${payload.volume ? `<p><strong>🔢 Volume:</strong> ${payload.volume}</p>` : ''}
+        ${payload.produtos ? `<p><strong>📋 Produtos:</strong> ${payload.produtos}</p>` : ''}
+      `;
+
+    } catch (err) {
+      alert('Erro ao enviar agendamento. Verifique a conexão e tente novamente.');
+      btn.classList.remove('loading');
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Agendar no Calendário`;
+    }
+  });
+
+  function resetForm() {
+    document.getElementById('agendamentoForm').reset();
+    document.getElementById('mainCard').classList.remove('hide-form');
+    ['grp-fornecedor','grp-data','grp-deposito'].forEach(id => {
+      document.getElementById(id).classList.remove('has-error');
+    });
+    const btn = document.getElementById('btnSubmit');
+    btn.classList.remove('loading');
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Agendar no Calendário`;
+  }
+</script>
+
+<style>
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>
+</body>
+</html>
