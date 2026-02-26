@@ -351,11 +351,38 @@
     }
     .toast.show { display: flex; }
 
+    /* ─── CALENDÁRIO TAB ─── */
+    .cal-view-tabs {
+      display: flex; gap: 6px; margin-bottom: 14px;
+    }
+    .cv-btn {
+      padding: 7px 16px; border-radius: 20px; border: 1px solid var(--border);
+      background: transparent; color: var(--gray); font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; font-family: 'Barlow', sans-serif;
+      letter-spacing: 0.5px;
+    }
+    .cv-btn.active { background: var(--red); border-color: var(--red); color: white; }
+    .cv-btn:hover:not(.active) { color: white; border-color: rgba(255,255,255,0.3); }
+
+    .cal-frame-wrap {
+      border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .cal-frame-wrap iframe {
+      display: block; width: 100%; border: none; height: 600px;
+    }
+    .cal-note {
+      font-size: 11px; color: rgba(160,174,192,0.4);
+      text-align: center; margin-top: 10px;
+    }
+
     @media (max-width: 580px) {
       .card { padding: 20px 14px; }
       .ev-card { flex-direction: column; }
       .ev-actions { width: 100%; }
       .btn-edit, .btn-del { flex: 1; justify-content: center; }
+      .cal-frame-wrap iframe { height: 480px; }
     }
   </style>
 </head>
@@ -411,6 +438,7 @@
   <div class="tabs">
     <button class="tab active" onclick="switchTab('form', this)">📋 Novo Agendamento</button>
     <button class="tab" onclick="switchTab('list', this)" id="tabList">📦 Gerenciar</button>
+    <button class="tab" onclick="switchTab('cal', this)" id="tabCal">📅 Calendário</button>
   </div>
 
   <!-- TAB: FORM -->
@@ -485,6 +513,19 @@
     <div id="evContainer">
       <div class="loading-state"><div class="spinner"></div>Carregando...</div>
     </div>
+  </div>
+
+  <!-- TAB: CALENDÁRIO -->
+  <div class="tab-content" id="tab-cal">
+    <div class="cal-view-tabs">
+      <button class="cv-btn active" onclick="setCalView('week', this)">Semana</button>
+      <button class="cv-btn" onclick="setCalView('month', this)">Mês</button>
+      <button class="cv-btn" onclick="setCalView('agenda', this)">Lista</button>
+    </div>
+    <div class="cal-frame-wrap">
+      <iframe id="calIframe" src="" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <p class="cal-note">📌 Somente visualização. Para editar use a aba Gerenciar.</p>
   </div>
 
 </div><!-- /appWrap -->
@@ -629,12 +670,29 @@
   }
 
   // ── TABS ──
+  const CAL_ID = 'e6933929103880079fab44198b9a96ec49c851b882b8a4ba1ec3d8ac3e30e28a%40group.calendar.google.com';
+  let calLoaded = false;
+
+  function buildCalSrc(mode) {
+    return `https://calendar.google.com/calendar/embed?src=${CAL_ID}&ctz=America%2FSao_Paulo&mode=${mode.toUpperCase()}&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%230d1b3e&color=%23c8102e`;
+  }
+
+  function setCalView(mode, btn) {
+    document.querySelectorAll('.cv-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('calIframe').src = buildCalSrc(mode);
+  }
+
   function switchTab(name, btn) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById('tab-' + name).classList.add('active');
     if (name === 'list') loadEvents();
+    if (name === 'cal' && !calLoaded) {
+      document.getElementById('calIframe').src = buildCalSrc('week');
+      calLoaded = true;
+    }
   }
 
   // ── CRIAR AGENDAMENTO ──
