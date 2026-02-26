@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recebimentos de Mercadorias — Comercial do Norte</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0d1b3e;
+      --navy-mid: #162244;
+      --red: #c8102e;
+      --white: #ffffff;
+      --gray: #a0aec0;
+      --border: rgba(255,255,255,0.1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--navy);
+      background-image:
+        radial-gradient(ellipse at 15% 0%, rgba(200,16,46,0.15) 0%, transparent 50%),
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.02) 39px, rgba(255,255,255,0.02) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.02) 39px, rgba(255,255,255,0.02) 40px);
+      font-family: 'Barlow', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 40px;
+    }
+
+    /* HEADER */
+    .header {
+      width: 100%;
+      max-width: 960px;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .logo-band {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--red);
+      padding: 5px 18px;
+      border-radius: 2px;
+      margin-bottom: 14px;
+    }
+
+    .logo-band span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: white;
+    }
+
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(24px, 6vw, 36px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    h1 span { color: var(--red); }
+
+    .subtitle {
+      margin-top: 6px;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--gray);
+    }
+
+    /* VIEW TOGGLE */
+    .controls {
+      width: 100%;
+      max-width: 960px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .view-tabs {
+      display: flex;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 3px;
+    }
+
+    .view-tab {
+      padding: 7px 16px;
+      border: none;
+      background: transparent;
+      color: var(--gray);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .view-tab.active {
+      background: var(--red);
+      color: white;
+    }
+
+    .view-tab:hover:not(.active) {
+      background: rgba(255,255,255,0.07);
+      color: white;
+    }
+
+    .legend {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #e67c3b;
+      flex-shrink: 0;
+    }
+
+    /* CALENDAR CONTAINER */
+    .cal-wrapper {
+      width: 100%;
+      max-width: 960px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    }
+
+    .cal-wrapper iframe {
+      display: block;
+      width: 100%;
+      border: none;
+      height: 680px;
+      transition: height 0.3s;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 20px;
+      font-size: 11px;
+      color: rgba(160,174,192,0.3);
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: rgba(200,16,46,0.5);
+      text-decoration: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .cal-wrapper iframe { height: 520px; }
+      .controls { justify-content: center; }
+      .legend { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo-band">
+      <span>Comercial do Norte</span>
+    </div>
+    <h1>Recebimentos de <span>Mercadorias</span></h1>
+    <p class="subtitle">Calendário de agendamentos — somente visualização</p>
+  </div>
+
+  <div class="controls">
+    <div class="view-tabs">
+      <button class="view-tab active" onclick="setView('week')">Semana</button>
+      <button class="view-tab" onclick="setView('month')">Mês</button>
+      <button class="view-tab" onclick="setView('agenda')">Lista</button>
+    </div>
+    <div class="legend">
+      <div class="legend-dot"></div>
+      <span>Agendamento confirmado</span>
+    </div>
+  </div>
+
+  <div class="cal-wrapper">
+    <iframe id="calFrame" src="" frameborder="0" scrolling="no"></iframe>
+  </div>
+
+  <p class="footer">Apenas visualização &nbsp;•&nbsp; Para agendar, contate o responsável</p>
+
+<script>
+  // ID do calendário
+  const CAL_ID = 'e6933929103880079fab44198b9a96ec49c851b882b8a4ba1ec3d8ac3e30e28a%40group.calendar.google.com';
+
+  const views = {
+    week: 'week',
+    month: 'month',
+    agenda: 'agenda'
+  };
+
+  let currentView = 'week';
+
+  function buildSrc(view) {
+    const mode = views[view];
+    return `https://calendar.google.com/calendar/embed?src=${CAL_ID}&ctz=America%2FSao_Paulo&mode=${mode.toUpperCase()}&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%230d1b3e&color=%23c8102e`;
+  }
+
+  function setView(view) {
+    currentView = view;
+    document.getElementById('calFrame').src = buildSrc(view);
+    document.querySelectorAll('.view-tab').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  // Init
+  document.getElementById('calFrame').src = buildSrc('week');
+</script>
+
+</body>
+</html>
